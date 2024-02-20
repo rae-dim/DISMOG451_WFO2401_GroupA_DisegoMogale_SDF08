@@ -22,6 +22,9 @@
     --fs-h2: 2.25rem;
     --fs-h3: 1.25rem;
     --fs-body: 1rem;
+
+    --bs: 0.25em 0.25em 0.75em rgba(0, 0, 0, 0.55),
+          0.125em 0.125em 0.25em rgba(0, 0, 0, 0.45);  /* layering your shaddows makes it more realistic */
 }
 
 @media (min-width: 800px) {    /* we use a media query to set values for a specific screen size. */
@@ -43,6 +46,10 @@ body {
     line-height: 1.6;
 }
 
+section {
+    padding: 5em 2em;
+}
+
 img {
     display: block;
     max-width: 100%;
@@ -51,6 +58,33 @@ img {
 strong {
      font-weight: var(--fw-bold);
 }
+
+:focus {
+    outline: 5px solid var(--clr-accent2); 
+}
+
+/* Button */
+
+.btn {
+    display: inline-block;
+    padding: .5em 2.5em;
+    background: var(--clr-accent);
+    color: var(--clr-dark);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: var(--fw-bold);
+    transition: transform 200ms ease-in-out;
+
+}
+
+.btn:hover {
+    transform:  scale(1.5);
+}
+
+
 
 /* Typography */
 
@@ -85,6 +119,170 @@ h3 { font-size: var(--fs-h3);}
 .section__subtitle--intro,
 .section__subtitle--about {
     background: var(--clr-accent2);
+    padding: .25em 1em;
     font-family: var(--ff-secondary);
+    margin-bottom: 1rem;
+}
+
+/* ! Header */
+
+/* Intro Section */
+.nav {
+    display: none:
+}
+.intro {
+    position: relative;
+}
+
+.intro__img {
+    box-shadow: var(--bs);
+}
+
+.section__subtitle--intro {
+    text-transform: uppercase;
+}
+
+@media (min-width: 600px) {
+    .intro {
+        display: grid;
+        width: min-content;
+        margin: 0 auto;   /* this and the preceding line center the content */
+        grid-column-gap: 1em;
+        grid-template-areas: 
+            "img title"
+            "img subtitle";
+        grid-template-columns: min-content max-content;
+    }
+
+    .intro__img {
+        grid-area: img;
+        min-width: 250px;
+        /* position: relative;  before, the subtitle bar went over the image, this line of code layed the image on top of the bar */
+        z-index: 2;    /* z-index property specifies the stack order of an element, element with greater stack index=in front of element with lower z-index */
+    }
+
+    .section__title--intro {
+        grid-area: title;
+        min-width: 250px;
+    }
+
+    .section__subtitle--intro {
+        align-self: start; /* stops it from stretching */
+        grid-column: -1 / 1; /* makes it stretcch the whole column */
+        grid-row: 2;
+        text-align: end;
+        position: relative; /* always aim to avoid absolute position */
+        left: -1.5em;
+        width: calc(100% + 1.5em);  /* basically here, were compensating for the -1.5em that took the bar to the left */
+        z-index: 1;
+    } 
+}
+
+/* ! My services section */
+
+.my-services {
+    background-color: color-mix(in srgb, var(--clr-dark) 60%, white); /* color-mix lets you blend colors together */
+    background-image: url(../img/services-bg.jpg);
+    background-size: cover;
+    background-blend-mode: multiply;  /* this property lets you visually blend background layers such as background-color and a background-image */
+    color: var(--clr-light);
+    text-align: center;
+} 
+
+.section__title--services {
+    color: var(--clr-accent2);
+    position:relative;
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-h2);
+    /* border-bottom: solid medium var(--clr-light); */
+}
+
+.section__title--services::after {   /* inserts the little line under the heading */
+    content: "";
+    display: block;
+    width: 25%;
+    height: 1px;
+    margin: 0.5em auto 1em;
+    background: var(--clr-light);
+    opacity: 0.35;
 
 }
+
+.service {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.services {
+    margin-bottom: 2em;
+}
+
+
+@media (min-width:800px) {
+    .services {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1150px;
+        justify-content: space-around;
+        flex-direction: row;
+    }
+
+    .service + .service {
+        margin-left: 2em;
+    }
+
+}
+
+/* About me */
+
+about-me {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.about-me__img {
+    box-shadow: var(--bs);
+}
+
+
+@media (min-width: 600px) {
+    .about-me {
+        display: grid;
+        grid-template-columns: 1fr 200px;
+        grid-template-areas: 
+            "title img"
+            "subtitle img"
+            "body img"; 
+        grid-column-gap: 2em;
+    }
+
+    .section__title--about{
+        grid-area: title;
+    }
+
+    .about-me__img {
+        grid-area: img;
+        grid-column: 2;
+        grid-row: 1 / -1;
+        z-index: 2;
+        
+    }
+
+    .section__subtitle--about {
+        grid-area: subtitle;
+        grid-column: 1 / -1;
+        grid-row: 2;
+        position: relative;
+        left: -1em;
+        width: calc(100% + 2em);
+        padding-left: 1em;
+        padding-right: calc(200px+ 4em);
+        z-index: 1;
+    }
+
+    .about-me__body {
+        grid-area: body;
+    }
+} 
+
