@@ -38,6 +38,10 @@
 
 /* !General Styles */
 
+html {
+    scroll-behavior: smooth;  /* prevents jumping from one section to another, document scrolls smoothly */
+}
+
 body {
     background: var(--clr-light);
     color: var(--clr-dark);
@@ -62,6 +66,8 @@ strong {
 :focus {
     outline: 5px solid var(--clr-accent2); 
 }
+
+
 
 /* Button */
 
@@ -189,13 +195,22 @@ header {
     z-index: 10000;
 }
 
+.nav-open .nav {
+    transform: translateX(0%);  /* when the nav-toggle button is clicked, the nav bar moves into view. */
+}
+
+.nav-open .nav-toggle {
+    position: fixed;
+}
+
+
 
 /* Creating the hamburger icon */
 
 .hamburger,
 .hamburger::before,
 .hamburger::after {
-    background: var(--clr-dark);
+    background: var(--clr-accent);
     width: 2em;
     height: 3px;
     border-radius: 1em;
@@ -218,6 +233,23 @@ header {
 .hamburger::before { top: 6px}
 
 .hamburger::after { bottom: 6px}
+
+ /* following code: when nav menu is open, hamburger turns into a cross */
+.nav-open .hamburger { 
+    transform: rotate(.625turn);
+}
+
+.nav-open .hamburger::before {
+    transform: rotate(90deg) translateX(-6px);
+}
+
+.nav-open .hamburger::after {
+    opacity: 0;
+}
+
+.nav-toggle:focus {
+    outline: none;
+}
 
 /* Intro Section */
 
@@ -337,7 +369,7 @@ header {
 }
 
 
-@media (min-width: 600px) {
+@media (min-width: 700px) {
     .about-me {
         display: grid;
         grid-template-columns: 1fr 200px;
@@ -390,8 +422,10 @@ header {
 .portfolio {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    max-width: 900px;
+    gap: 1em;
+    max-width: 1000px;
     margin: 0 auto;
+    place-items: center;
 }
 
 .portfolio__item {
@@ -463,3 +497,17 @@ header {
     padding: 0.5em;
 }
 
+
+/* ! Individual Portfolio item style */
+
+.portfolio-item-individual {
+    padding: 0 2em 2em;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.portfolio-item-individual p {  /* when you personalise the portfolio, include as much info, what you learned, what you did and why it was important*/
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
